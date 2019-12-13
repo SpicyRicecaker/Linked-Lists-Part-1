@@ -18,15 +18,15 @@ int main(){
   Node** headptr = &head;
 
   //Adding 5 students by passing them and the headptr into the add function, then print out our current list after each one is added
-  add(new Student((char*)"bob0", (char*)"joe0", (char*)"666999", (float*)new float(6.9)), headptr);
+  add(new Student((char*)"bob0", (char*)"joe0", (char*)"555999", (float*)new float(4.2)), headptr);
   print(headptr,headptr);
-  add(new Student((char*)"bob1", (char*)"joe1", (char*)"666999", (float*)new float(6.9)), headptr);
+  add(new Student((char*)"bob1", (char*)"joe1", (char*)"555999", (float*)new float(4.2)), headptr);
   print(headptr,headptr);
-  add(new Student((char*)"bob2", (char*)"joe2", (char*)"666999", (float*)new float(6.9)), headptr);
+  add(new Student((char*)"bob2", (char*)"joe2", (char*)"555999", (float*)new float(4.2)), headptr);
   print(headptr,headptr);
-  add(new Student((char*)"bob3", (char*)"joe3", (char*)"666999", (float*)new float(6.9)), headptr);
+  add(new Student((char*)"bob3", (char*)"joe3", (char*)"555999", (float*)new float(4.2)), headptr);
   print(headptr,headptr);
-  add(new Student((char*)"bob4", (char*)"joe4", (char*)"666999", (float*)new float(6.9)), headptr);
+  add(new Student((char*)"bob4", (char*)"joe4", (char*)"555999", (float*)new float(4.2)), headptr);
   print(headptr,headptr);
 }
 
@@ -41,8 +41,8 @@ void add(Student* newStudent, Node** headptr){
   }else{
     //Get to the end node
     while((*currentptr)->getNext() != NULL){
-      Node* temp = (*currentptr)->getNext();
-      currentptr = &temp;
+      Node* tempNext = (*currentptr)->getNext();
+      currentptr = &tempNext;
     }
     //Then point it to the next node with new student
     (*currentptr)->setNext(new Node(newStudent));
@@ -62,7 +62,7 @@ void print(Node** nextptr, Node** headptr){
     Student* temp = (*nextptr)->getStudent();
     cout << temp->getFNm() << ", " << temp->getLNm() << ", " << temp->getId() << ", "  << *(temp->getGpa()) << endl;
     //Then recurse with the next node
-    Node* nextNextptr = (*nextptr)->getNext();
-    print(&nextNextptr, headptr);
+    Node* tempNext = (*nextptr)->getNext();
+    print(&tempNext, headptr);
   }
 }
