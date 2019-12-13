@@ -9,16 +9,16 @@ using namespace std;
 
 class Node {
  public:
-  //A node needs a student pointer and the next node it points to
   Node(Student*);
-  //Destructor
   ~Node();
-  //Get the node it points to 
   Node* getNext();
-  //Set the node it points to 
   void setNext(Node*);
-  //Get the student that it's holding
   Student* getStudent();
+
+Student::~Student(){
+  delete fNm;
+  delete lNm;
+
  private:
   Student* student;
   Node* next;

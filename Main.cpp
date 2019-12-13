@@ -5,40 +5,64 @@
 
 using namespace std;
 
-void add(Student*, Node*);
-void print(Node*);
+//The add function takes in a new student and the beginning node
+void add(Student*, Node**);
+//The print function takes in a next node and the head node
+void print(Node**, Node**);
 
+//Main function
 int main(){
+  //We initiate the head pointer 
   Node* head = NULL;
+  //And make a pointer to it so we can modify the head pointer in different functions
+  Node** headptr = &head;
 
-  add(new Student((char*)"bob", (char*)"joe", (char*)"666999", (float*)new float), head);
-  print(head);
-  add(new Student((char*)"bob1", (char*)"joe1", (char*)"666999", (float*)new float), head);
-  print(head);
-  add(new Student((char*)"bob2", (char*)"joe2", (char*)"666999", (float*)new float), head);
-  print(head);
+  //Adding 5 students by passing them and the headptr into the add function, then print out our current list after each one is added
+  add(new Student((char*)"bob0", (char*)"joe0", (char*)"666999", (float*)new float(6.9)), headptr);
+  print(headptr,headptr);
+  add(new Student((char*)"bob1", (char*)"joe1", (char*)"666999", (float*)new float(6.9)), headptr);
+  print(headptr,headptr);
+  add(new Student((char*)"bob2", (char*)"joe2", (char*)"666999", (float*)new float(6.9)), headptr);
+  print(headptr,headptr);
+  add(new Student((char*)"bob3", (char*)"joe3", (char*)"666999", (float*)new float(6.9)), headptr);
+  print(headptr,headptr);
+  add(new Student((char*)"bob4", (char*)"joe4", (char*)"666999", (float*)new float(6.9)), headptr);
+  print(headptr,headptr);
 }
 
-void add(Student* newStudent, Node* head){
-  Node* current = head;
-  if(head == NULL){
-    head = new Node(newStudent);
+//The add function basically takes in a student, checks to see if it is the beginning node, if it is the beginning node initiate it with just a student, otherwise points a new node with the passed in student to the end node
+void add(Student* newStudent, Node** headptr){
+  //Set the current node to the beginning node
+  Node** currentptr = headptr;
+  //If the list is empty
+  if((*headptr) == NULL){
+    //Add to the list, leaving the next node blank
+    (*headptr) = new Node(newStudent);
   }else{
-    while(current->getNext() != NULL){
-      current = current->getNext();
+    //Get to the end node
+    while((*currentptr)->getNext() != NULL){
+      Node* temp = (*currentptr)->getNext();
+      currentptr = &temp;
     }
-    
+    //Then point it to the next node with new student
+    (*currentptr)->setNext(new Node(newStudent));
   }
 }
 
-void print(Node* head){
-  Node* next = head;
-  if(next == head){
+//The print function basically checks to see if the current node is the beginning node, if it is, print out list:, otherwise recursively go through the list and print every node
+void print(Node** nextptr, Node** headptr){
+  //If we passed it in from the beginning print function
+  if((*nextptr) == (*headptr)){
+    //Print list
     cout << "List: " << endl;
   }
-  if(next != NULL){
-    Student* temp = next->getStudent();
-    cout << temp->getFNm() << temp->getLNm() << temp->getId() << temp->getGpa() << endl;
-    print(next->getNext());
+  //Otherwise, make sure that we don't go out of bounds of the list
+  if((*nextptr) != NULL){
+    //Print out the student information in the current node
+    Student* temp = (*nextptr)->getStudent();
+    cout << temp->getFNm() << ", " << temp->getLNm() << ", " << temp->getId() << ", "  << *(temp->getGpa()) << endl;
+    //Then recurse with the next node
+    Node* nextNextptr = (*nextptr)->getNext();
+    print(&nextNextptr, headptr);
   }
 }
