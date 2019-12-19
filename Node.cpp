@@ -14,7 +14,8 @@ Node::Node(Student* newStudent){
 //Deallocate the student pointer and node pointer
 Node::~Node(){
   delete student;
-  delete next;
+  //delete next;
+  //deleted this line since it makes it impossible to delete specific nodes
 }
 
 //Return node that this node is pointing to
